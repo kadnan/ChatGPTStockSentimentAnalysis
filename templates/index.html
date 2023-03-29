@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stock Senti</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <style>
+      td[signal="BEARISH"] { color: red;}
+      td[signal="BULLISH"] { color: green;}
+      td[signal="NEUTRAL"] { color: grey;}
+          input {
+        text-transform: uppercase;
+    }
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        text-transform: none;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        text-transform: none;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        text-transform: none;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        text-transform: none;
+    }
+    ::placeholder { /* Recent browsers */
+        text-transform: none;
+    }
+    </style>
+    <div class="container">
+      <h1>Stock Senti</h1>
+
+      <!-- Search Bar -->
+      <div class="row">
+        <div class="col-sm-6">
+          <form method="POST" action="search">
+            <div class="input-group">
+              <input value="{{query}}" name="symbol" type="text" class="form-control" placeholder="Enter Symbol (e.g:) TSLA">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Search</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- HTML Table -->
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>You Searched For:- {{query}}</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Summary</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+             {% for row in data %}
+              <tr>
+                <td>{{ row['title'] }}</td>
+                <td>{{ row['summary'] }}</td>
+                <td signal="{{row['signal']}}">{{ row['signal'] }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
